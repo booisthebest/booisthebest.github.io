@@ -1,287 +1,103 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const eyes = document.querySelectorAll('.eye-movement');
-    const upperBody = document.querySelector('.upper-body');
-    const tail = document.querySelector('.tail');
-    const frontLegs = document.querySelectorAll('.front-leg');
-    const backLegs = document.querySelectorAll('.back-leg');
-    
-    const maxEyeMove = 6; // Increased eye movement range
-    const maxBodyRotation = 12; // More dramatic body rotation
-    const maxTailRotation = 60; // More extreme tail movement
-    const maxLegAdjust = 5;
-    
-    // State management for smooth animation
-    let currentRotationX = 0;
-    let currentRotationZ = 0;
-    let targetRotationX = 0;
-    let targetRotationZ = 0;
-    let currentTailX = 0;
-    let currentTailZ = 0;
-    let targetTailX = 0;
-    let targetTailZ = 0;
-    let eyePositions = Array.from(eyes).map(() => ({ x: 0, y: 0 }));
-    let targetEyePositions = Array.from(eyes).map(() => ({ x: 0, y: 0 }));
-    let animationFrameId = null;
-
-    function bounce(x) {
-        const n1 = 7.5625;
-        const d1 = 2.75;
-        if (x < 1 / d1) {
-            return n1 * x * x;
-        } else if (x < 2 / d1) {
-            return n1 * (x -= 1.5 / d1) * x + 0.75;
-        } else if (x < 2.5 / d1) {
-            return n1 * (x -= 2.25 / d1) * x + 0.9375;
-        } else {
-            return n1 * (x -= 2.625 / d1) * x + 0.984375;
-        }
+    // Initialize cat interactions if the cat container exists
+    if (document.querySelector('.cat-container')) {
+        window.initCatInteractions();
     }
 
-    function lerp(start, end, factor) {
-        return start + (end - start) * bounce(Math.min(factor, 1));
-    }
-
-    function updatePositions(mouseX, mouseY) {
-        const bodyRect = upperBody.getBoundingClientRect();
-        const bodyCenterX = bodyRect.left + bodyRect.width / 2;
-        const bodyCenterY = bodyRect.top + bodyRect.height / 2;
-
-        // Calculate normalized mouse position (-1 to 1) with overshoot
-        const deltaX = (mouseX - bodyCenterX) / (window.innerWidth / 2) * 1.2;
-        const deltaY = (mouseY - bodyCenterY) / (window.innerHeight / 2) * 1.2;
-        
-        // Update head rotation targets with more dramatic movement
-        targetRotationX = -deltaY * maxBodyRotation;
-        targetRotationZ = deltaX * maxBodyRotation;
-
-        // Update tail rotation targets with exaggerated movement
-        targetTailX = -deltaY * maxTailRotation * 0.5;
-        targetTailZ = -deltaX * maxTailRotation;
-
-        // Update leg positions based on body movement
-        frontLegs.forEach((leg, index) => {
-            const isLeft = index === 0;
-            const legAdjust = isLeft ? -maxLegAdjust : maxLegAdjust;
-            leg.style.transform = `rotate${deltaX > 0 ? 'Y' : 'X'}(${deltaX * legAdjust}deg)`;
-        });
-
-        backLegs.forEach((leg, index) => {
-            const isLeft = index === 0;
-            const legAdjust = isLeft ? -maxLegAdjust : maxLegAdjust;
-            leg.style.transform = `rotate${deltaX > 0 ? 'Y' : 'X'}(${deltaX * legAdjust * 0.5}deg)`;
-        });
-
-        // Calculate target eye positions with overshooting
-        eyes.forEach((eye, index) => {
-            const eyeRect = eye.getBoundingClientRect();
-            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
-            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
-
-            const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
-            const distance = Math.min(
-                Math.hypot(mouseX - eyeCenterX, mouseY - eyeCenterY) / 100, // Reduced divisor for more movement
-                1
-            );
-
-            targetEyePositions[index] = {
-                x: Math.cos(angle) * maxEyeMove * distance * 1.2,
-                y: Math.sin(angle) * maxEyeMove * distance * 1.2
-            };
-        });
-    }
-
-    function animate() {
-        // Smooth body movement with bouncy effect
-        currentRotationX = lerp(currentRotationX, targetRotationX, 0.15);
-        currentRotationZ = lerp(currentRotationZ, targetRotationZ, 0.15);
-        
-        upperBody.style.transform = 
-            `rotateX(${currentRotationX}deg) 
-             rotateZ(${currentRotationZ}deg)`;
-
-        // Smooth tail movement with bouncy effect
-        currentTailX = lerp(currentTailX, targetTailX, 0.1);
-        currentTailZ = lerp(currentTailZ, targetTailZ, 0.1);
-        
-        const swayAmount = Math.sin(Date.now() / 800) * 15; // More dramatic swaying
-        
-        tail.style.transform = 
-            `rotateX(${currentTailX}deg) 
-             rotateZ(${currentTailZ + swayAmount}deg)`;
-
-        // Smooth eye movement with bounce
-        eyes.forEach((eye, index) => {
-            eyePositions[index].x = lerp(eyePositions[index].x, targetEyePositions[index].x, 0.2);
-            eyePositions[index].y = lerp(eyePositions[index].y, targetEyePositions[index].y, 0.2);
-            
-            eye.style.transform = `translate(${eyePositions[index].x}px, ${eyePositions[index].y}px)`;
-        });
-
-        animationFrameId = requestAnimationFrame(animate);
-    }
-
-    // Clean up previous animation frame if it exists
-    function startAnimation() {
-        if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-        }
-        animate();
-    }
-
-    // Initialize animation
-    startAnimation();
-
-    // Throttled mouse move handler
-    let ticking = false;
-    document.addEventListener('mousemove', (e) => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                updatePositions(e.clientX, e.clientY);
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-
+    // Book-related code
     const bookContainer = document.querySelector('.book-container');
-    const bookSpreads = document.querySelectorAll('.book-spread');
-    const bookCover = document.querySelector('.book-cover');
-    const prevButton = document.querySelector('.book-nav.prev');
-    const nextButton = document.querySelector('.book-nav.next');
-    
-    let currentSpreadIndex = 0;
-    let isAnimating = false;
+    if (bookContainer) {
+        const bookSpreads = document.querySelectorAll('.book-spread');
+        const bookCover = document.querySelector('.book-cover');
+        const prevButton = document.querySelector('.book-nav.prev');
+        const nextButton = document.querySelector('.book-nav.next');
+        
+        let currentSpreadIndex = 0;
+        let isAnimating = false;
 
-    function updateNavigationButtons() {
-        prevButton.disabled = currentSpreadIndex === 0;
-        nextButton.disabled = currentSpreadIndex === bookSpreads.length;
-    }
+        function updateNavigationButtons() {
+            prevButton.disabled = currentSpreadIndex === 0;
+            nextButton.disabled = currentSpreadIndex === bookSpreads.length;
+        }
 
-    function turnToPage(index, immediate = false) {
-        if (isAnimating || index < 0 || index > bookSpreads.length) return;
-        isAnimating = true;
+        function turnToPage(index, immediate = false) {
+            if (isAnimating || index < 0 || index > bookSpreads.length) return;
+            isAnimating = true;
 
-        const duration = immediate ? 0 : 600;
-        currentSpreadIndex = index;
+            const duration = immediate ? 0 : 600;
+            currentSpreadIndex = index;
 
-        // Handle cover and spreads with corrected animations
-        if (index === 0) {
-            // Close the book
-            bookCover.style.transform = 'rotateY(0)';
-            bookSpreads.forEach((spread, i) => {
-                spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1) ${i * 100}ms`;
-                spread.classList.remove('active', 'prev', 'next');
-                spread.style.opacity = '0';
-                spread.style.transform = 'rotateY(90deg)';
-            });
-        } else {
-            // Open the book
-            bookCover.style.transform = 'rotateY(-180deg)';
-            
-            bookSpreads.forEach((spread) => {
-                const spreadIndex = parseInt(spread.dataset.page);
-                const delay = Math.abs(spreadIndex - index) * 100;
-                spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1) ${delay}ms`;
-                
-                const leftPage = spread.querySelector('.left-page');
-                const rightPage = spread.querySelector('.right-page');
-                
-                if (spreadIndex === index) {
-                    // Current spread
-                    spread.classList.add('active');
-                    spread.classList.remove('prev', 'next');
-                    spread.style.opacity = '1';
-                    spread.style.transform = 'rotateY(0)';
-                    
-                    leftPage.classList.remove('turned');
-                    rightPage.classList.remove('turned');
-                } else if (spreadIndex < index) {
-                    // Previous spreads
-                    spread.classList.add('prev');
-                    spread.classList.remove('active', 'next');
-                    spread.style.opacity = '1';
-                    spread.style.transform = 'rotateY(-180deg)';
-                    
-                    leftPage.classList.add('turned');
-                    rightPage.classList.add('turned');
-                } else {
-                    // Next spreads
-                    spread.classList.add('next');
-                    spread.classList.remove('active', 'prev');
+            // Handle cover and spreads with corrected animations
+            if (index === 0) {
+                // Close the book
+                bookCover.style.transform = 'rotateY(0)';
+                bookSpreads.forEach((spread, i) => {
+                    spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1) ${i * 100}ms`;
+                    spread.classList.remove('active', 'prev', 'next');
                     spread.style.opacity = '0';
                     spread.style.transform = 'rotateY(90deg)';
-                    
-                    leftPage.classList.remove('turned');
-                    rightPage.classList.remove('turned');
-                }
-            });
-        }
-
-        updateNavigationButtons();
-
-        setTimeout(() => {
-            isAnimating = false;
-        }, duration + (bookSpreads.length * 100));
-    }
-
-    prevButton.addEventListener('click', () => {
-        if (!isAnimating) {
-            turnToPage(currentSpreadIndex - 1);
-        }
-    });
-
-    // Update next button handler for smoother animation
-    nextButton.addEventListener('click', () => {
-        if (!isAnimating) {
-            if (currentSpreadIndex === 0) {
-                bookCover.style.transform = 'rotateY(-180deg)';
-                setTimeout(() => {
-                    turnToPage(1);
-                }, 600);
+                });
             } else {
-                turnToPage(currentSpreadIndex + 1);
+                // Open the book
+                bookCover.style.transform = 'rotateY(-180deg)';
+                
+                bookSpreads.forEach((spread) => {
+                    const spreadIndex = parseInt(spread.dataset.page);
+                    const delay = Math.abs(spreadIndex - index) * 100;
+                    spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1) ${delay}ms`;
+                    
+                    const leftPage = spread.querySelector('.left-page');
+                    const rightPage = spread.querySelector('.right-page');
+                    
+                    if (spreadIndex === index) {
+                        // Current spread
+                        spread.classList.add('active');
+                        spread.classList.remove('prev', 'next');
+                        spread.style.opacity = '1';
+                        spread.style.transform = 'rotateY(0)';
+                        
+                        leftPage.classList.remove('turned');
+                        rightPage.classList.remove('turned');
+                    } else if (spreadIndex < index) {
+                        // Previous spreads
+                        spread.classList.add('prev');
+                        spread.classList.remove('active', 'next');
+                        spread.style.opacity = '1';
+                        spread.style.transform = 'rotateY(-180deg)';
+                        
+                        leftPage.classList.add('turned');
+                        rightPage.classList.add('turned');
+                    } else {
+                        // Next spreads
+                        spread.classList.add('next');
+                        spread.classList.remove('active', 'prev');
+                        spread.style.opacity = '0';
+                        spread.style.transform = 'rotateY(90deg)';
+                        
+                        leftPage.classList.remove('turned');
+                        rightPage.classList.remove('turned');
+                    }
+                });
             }
-        }
-    });
 
-    // Modified scroll behavior for smoother transitions
-    let lastScrollPosition = window.scrollY;
-    let scrollTimeout;
-    
-    window.addEventListener('scroll', () => {
-        if (scrollTimeout) {
-            clearTimeout(scrollTimeout);
+            updateNavigationButtons();
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, duration + (bookSpreads.length * 100));
         }
 
-        scrollTimeout = setTimeout(() => {
-            const currentScroll = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const scrollDirection = currentScroll > lastScrollPosition ? 1 : -1;
-
-            // Calculate which spread should be visible based on scroll position
-            const scrollPercentage = (currentScroll + windowHeight * 0.3) / document.documentElement.scrollHeight;
-            const targetIndex = Math.floor(scrollPercentage * (bookSpreads.length + 1));
-
-            if (targetIndex !== currentSpreadIndex) {
-                turnToPage(Math.min(targetIndex, bookSpreads.length));
-            }
-
-            lastScrollPosition = currentScroll;
-        }, 50);
-    });
-
-    // Initialize
-    updateNavigationButtons();
-    turnToPage(0, true);
-
-    // Add keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (!isAnimating) {
-            if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevButton.addEventListener('click', () => {
+            if (!isAnimating) {
                 turnToPage(currentSpreadIndex - 1);
-            } else if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+            }
+        });
+
+        // Update next button handler for smoother animation
+        nextButton.addEventListener('click', () => {
+            if (!isAnimating) {
                 if (currentSpreadIndex === 0) {
-                    bookCover.style.transform = 'rotateY(180deg)';
+                    bookCover.style.transform = 'rotateY(-180deg)';
                     setTimeout(() => {
                         turnToPage(1);
                     }, 600);
@@ -289,6 +105,54 @@ document.addEventListener('DOMContentLoaded', () => {
                     turnToPage(currentSpreadIndex + 1);
                 }
             }
-        }
-    });
+        });
+
+        // Modified scroll behavior for smoother transitions
+        let lastScrollPosition = window.scrollY;
+        let scrollTimeout;
+        
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+
+            scrollTimeout = setTimeout(() => {
+                const currentScroll = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const scrollDirection = currentScroll > lastScrollPosition ? 1 : -1;
+
+                // Calculate which spread should be visible based on scroll position
+                const scrollPercentage = (currentScroll + windowHeight * 0.3) / document.documentElement.scrollHeight;
+                const targetIndex = Math.floor(scrollPercentage * (bookSpreads.length + 1));
+
+                if (targetIndex !== currentSpreadIndex) {
+                    turnToPage(Math.min(targetIndex, bookSpreads.length));
+                }
+
+                lastScrollPosition = currentScroll;
+            }, 50);
+        });
+
+        // Initialize
+        updateNavigationButtons();
+        turnToPage(0, true);
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!isAnimating) {
+                if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    turnToPage(currentSpreadIndex - 1);
+                } else if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                    if (currentSpreadIndex === 0) {
+                        bookCover.style.transform = 'rotateY(180deg)';
+                        setTimeout(() => {
+                            turnToPage(1);
+                        }, 600);
+                    } else {
+                        turnToPage(currentSpreadIndex + 1);
+                    }
+                }
+            }
+        });
+    }
 });
