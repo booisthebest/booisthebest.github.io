@@ -7,6 +7,28 @@ body {
     color: #333;
 }
 
+/* Hero section */
+.hero-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.hero-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
 /* Main content */
 .main-content {
     max-width: 1200px;
@@ -29,4 +51,25 @@ body {
     padding: 2rem;
     background: linear-gradient(135deg, #e5e5ff 0%, #f0e6ff 100%);
     color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .site-title {
+        font-size: 2rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .hero-section {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    .hero-image {
+        height: 300px;
+        border-radius: 15px;
+    }
 }
