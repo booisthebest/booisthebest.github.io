@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Tuxedo Cat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="cat-container">
+            <svg class="cat" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <clipPath id="body-clip">
+                        <path d="
+                            M130,140 
+                            C120,140 110,130 110,120
+                            C110,100 120,90 130,85
+                            L130,80
+                            C130,65 170,65 170,80
+                            L170,85
+                            C180,90 190,100 190,120
+                            C190,130 180,140 170,140
+                            C170,150 130,150 130,140
+                            Z"/>
+                    </clipPath>
+                </defs>
+                
+                <g class="cat-body">
+                    <!-- Main body (sitting) -->
+                    <path class="body-base" d="
+                        M130,140 
+                        C120,140 110,130 110,120
+                        C110,100 120,90 130,85
+                        L130,80
+                        C130,65 170,65 170,80
+                        L170,85
+                        C180,90 190,100 190,120
+                        C190,130 180,140 170,140
+                        C170,150 130,150 130,140
+                        Z" fill="black"/>
+
+                    <!-- White chest patch -->
+                    <path class="chest-patch" d="
+                        M135,85
+                        C142,75 158,75 165,85
+                        L160,100
+                        C158,110 142,110 140,100
+                        Z" fill="white" style="stroke: none;"/>
+
+                    <!-- Tail (animated) -->
+                    <g class="tail">
+                        <path d="
+                            M180,120
+                            C200,120 220,100 225,80
+                            C228,70 220,65 215,70
+                            C210,75 205,85 200,95
+                            Z" fill="black"/>
+                    </g>
+
+                    <!-- Upper body and head (moves) -->
+                    <g class="upper-body">
+                        <!-- Face circle -->
+                        <circle class="face" cx="150" cy="60" r="35" fill="black"/>
+                        
+                        <!-- Ears -->
+                        <path class="ear left-ear" d="M125,35 C125,25 120,15 130,20 C140,25 140,25 140,35 Z" fill="black"/>
+                        <path class="ear right-ear" d="M175,35 C175,25 180,15 170,20 C160,25 160,25 160,35 Z" fill="black"/>
+                        
+                        <!-- Eyes -->
+                        <g class="eyes">
+                            <!-- Left eye -->
+                            <g class="eye-container" transform="translate(140,55)">
+                                <ellipse class="eye-outline" cx="0" cy="0" rx="8" ry="11.5" fill="white"/>
+                                <g class="eye-movement">
+                                    <ellipse class="pupil" cx="0" cy="0" rx="3.5" ry="4" fill="black"/>
+                                    <circle class="eye-highlight" cx="1.5" cy="-2" r="1.5" fill="white"/>
+                                </g>
+                            </g>
+                            <!-- Right eye -->
+                            <g class="eye-container" transform="translate(160,55)">
+                                <ellipse class="eye-outline" cx="0" cy="0" rx="8" ry="11.5" fill="white"/>
+                                <g class="eye-movement">
+                                    <ellipse class="pupil" cx="0" cy="0" rx="3.5" ry="4" fill="black"/>
+                                    <circle class="eye-highlight" cx="1.5" cy="-2" r="1.5" fill="white"/>
+                                </g>
+                            </g>
+                        </g>
+                        
+                        <!-- Nose -->
+                        <circle class="nose" cx="150" cy="70" r="3" fill="pink"/>
+                        
+                        <!-- Whiskers -->
+                        <g class="whiskers" stroke="black" stroke-width="3">
+                            <!-- Left whiskers -->
+                            <line x1="109" y1="60" x2="130" y2="65"/>
+                            <line x1="108" y1="70" x2="130" y2="70"/>
+                            <line x1="110" y1="80" x2="130" y2="75"/>
+                            <!-- Right whiskers -->
+                            <line x1="191" y1="60" x2="170" y2="65"/>
+                            <line x1="192" y1="70" x2="170" y2="70"/>
+                            <line x1="190" y1="80" x2="170" y2="75"/>
+                        </g>
+                        
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <h1 class="site-title">Purrfect Blog</h1>
+    </header>
+
+    <main class="main-content">
+        <section class="featured-post">
+            <article class="post-card">
+                <div class="post-image placeholder"></div>
+                <div class="post-content">
+                    <h2>Welcome to My Cat Blog!</h2>
+                    <p class="post-meta">April 19, 2025 • 5 min read 🐱</p>
+                    <p>Join me on this wonderful journey through the world of cats...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+        </section>
+
+        <section class="post-grid">
+            <article class="post-card">
+                <div class="post-image placeholder"></div>
+                <div class="post-content">
+                    <h3>Cat Care Tips</h3>
+                    <p class="post-meta">April 18, 2025 • 3 min read 🐾</p>
+                    <p>Essential tips for keeping your feline friend happy...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <div class="post-image placeholder"></div>
+                <div class="post-content">
+                    <h3>Best Cat Toys</h3>
+                    <p class="post-meta">April 17, 2025 • 4 min read 🧶</p>
+                    <p>Discover the toys that will keep your cat entertained...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <div class="post-image placeholder"></div>
+                <div class="post-content">
+                    <h3>Cat Photography</h3>
+                    <p class="post-meta">April 16, 2025 • 6 min read 📸</p>
+                    <p>Tips for capturing the perfect cat photos...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2025 Purrfect Blog • Made with 💖 and 🐱</p>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>
