@@ -3,29 +3,66 @@ layout: default
 title: Home
 ---
 
-<section class="featured-post">
-    {% assign featured_post = site.posts.first %}
-    <article class="post-card">
-        <div class="post-image placeholder"></div>
-        <div class="post-content">
-            <h2>{{ featured_post.title }}</h2>
-            <p class="post-meta">{{ featured_post.date | date: "%B %d, %Y" }} • {{ featured_post.read_time }} min read 🐱</p>
-            <p>{{ featured_post.excerpt }}</p>
-            <a href="{{ featured_post.url | relative_url }}" class="read-more">Read More →</a>
+<div class="book-container">
+    <button class="book-nav prev" aria-label="Previous page">←</button>
+    <div class="book">
+        <div class="book-cover">
+            <h2>{{ site.title }}</h2>
         </div>
-    </article>
-</section>
-
-<section class="post-grid">
-    {% for post in site.posts offset:1 limit:3 %}
-    <article class="post-card">
-        <div class="post-image placeholder"></div>
-        <div class="post-content">
-            <h3>{{ post.title }}</h3>
-            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }} • {{ post.read_time }} min read {% if post.emoji %}{{ post.emoji }}{% endif %}</p>
-            <p>{{ post.excerpt }}</p>
-            <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
-        </div>
-    </article>
-    {% endfor %}
-</section>
+        
+        {% assign posts = site.posts | reverse %}
+        {% assign total_spreads = posts | size | divided_by: 2.0 | ceil %}
+        
+        {% for i in (1..total_spreads) %}
+            {% assign left_index = forloop.index0 | times: 2 %}
+            {% assign right_index = left_index | plus: 1 %}
+            {% assign prev_right_index = left_index | minus: 1 %}
+            {% assign next_left_index = right_index | plus: 1 %}
+            
+            <div class="book-spread{% if forloop.first %} active{% endif %}" data-page="{{ forloop.index }}">
+                <div class="book-page left-page">
+                    <div class="page-content front">
+                        {% assign post = posts[left_index] %}
+                        {% if post %}
+                            <h3>{{ post.title }}</h3>
+                            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }} • {{ post.read_time }} min read {% if post.emoji %}{{ post.emoji }}{% endif %}</p>
+                            <p>{{ post.excerpt }}</p>
+                            <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
+                        {% endif %}
+                    </div>
+                    <div class="page-content back">
+                        {% assign post = posts[prev_right_index] %}
+                        {% if post %}
+                            <h3>{{ post.title }}</h3>
+                            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }} • {{ post.read_time }} min read {% if post.emoji %}{{ post.emoji }}{% endif %}</p>
+                            <p>{{ post.excerpt }}</p>
+                            <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="book-page right-page">
+                    <div class="page-content front">
+                        {% assign post = posts[right_index] %}
+                        {% if post %}
+                            <h3>{{ post.title }}</h3>
+                            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }} • {{ post.read_time }} min read {% if post.emoji %}{{ post.emoji }}{% endif %}</p>
+                            <p>{{ post.excerpt }}</p>
+                            <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
+                        {% endif %}
+                    </div>
+                    <div class="page-content back">
+                        {% assign post = posts[next_left_index] %}
+                        {% if post %}
+                            <h3>{{ post.title }}</h3>
+                            <p class="post-meta">{{ post.date | date: "%B %d, %Y" }} • {{ post.read_time }} min read {% if post.emoji %}{{ post.emoji }}{% endif %}</p>
+                            <p>{{ post.excerpt }}</p>
+                            <a href="{{ post.url | relative_url }}" class="read-more">Read More →</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <button class="book-nav next" aria-label="Next page">→</button>
+</div>

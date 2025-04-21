@@ -1,0 +1,229 @@
+// Book container and perspective setup
+.book-container {
+    perspective: 2000px;
+    perspective-origin: 50% 50%;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: auto; // Changed from 100vh to auto
+    position: relative;
+    margin-bottom: 2rem; // Add some space after the book
+}
+
+.book {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+    height: 500px;  // Fixed height
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: column;
+}
+
+// Book cover styling - right-aligned cover
+.book-cover {
+    position: absolute;
+    top: 0;
+    right: 0; // Changed from left: 0 to right: 0
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    border-radius: 2px 10px 10px 2px; // Swapped border radius
+    box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.3); // Adjusted shadow
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: left; // Changed from right to left
+    transform: rotateY(0);
+    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+    backface-visibility: hidden;
+    z-index: 2;
+
+    h2 {
+        color: #fff;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        transform: rotateY(0); // Removed text mirroring
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0; // Changed from right to left
+        top: 0;
+        bottom: 0;
+        width: 30px;
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent);
+        border-radius: 2px 0 0 2px;
+    }
+}
+
+// Book spread (two pages) styling
+.book-spread {
+    position: absolute;
+    top: 0;
+    left: 0; // Changed from 50% to 0
+    width: 100%; // Changed from 50% to 100%
+    height: 100%;
+    display: flex;
+    opacity: 0;
+    transform-origin: center;
+    transform: rotateY(90deg);
+    transition: all 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+    z-index: 1;
+    pointer-events: none;
+    perspective: 2000px;
+    transform-style: preserve-3d;
+
+    &.active {
+        opacity: 1;
+        transform: rotateY(0);
+        pointer-events: auto;
+        z-index: 2;
+    }
+
+    &.prev {
+        opacity: 1;
+        transform: rotateY(-180deg);
+        z-index: 1;
+    }
+
+    &.next {
+        opacity: 0;
+        transform: rotateY(90deg);
+        z-index: 1;
+    }
+}
+
+// Remove the margin styles that were causing stacking
+.book-spread:nth-child(n+2) {
+    margin-top: 0;
+}
+
+// Individual page styling
+.book-page {
+    flex: 1;
+    background: linear-gradient(to right, #fff 0%, #f9f9f9 100%);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+
+    &.left-page {
+        transform-origin: right;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        transform: rotateY(0);
+        
+        &.turned {
+            transform: rotateY(180deg);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
+        }
+    }
+
+    &.right-page {
+        transform-origin: left;
+        transform: rotateY(0);
+        
+        &.turned {
+            transform: rotateY(-180deg);
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1));
+        }
+    }
+
+    .page-content {
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        
+        &.back {
+            transform: rotateY(180deg);
+        }
+    }
+}
+
+.page-content {
+    max-width: 90%;
+    margin: 0 auto;
+    
+    h3 {
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        color: #333;
+    }
+    
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+}
+
+// Animation states based on scroll
+[data-page] {
+    &.visible {
+        .book-page {
+            opacity: 1;
+            transform: rotateY(0);
+        }
+    }
+}
+
+.book-nav {
+    position: absolute; // Changed from fixed to absolute
+    top: 250px; // Center vertically relative to book height (500px/2)
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    color: #6b6bff;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 10;
+
+    &.prev {
+        left: 5%; // Position relative to book container
+    }
+
+    &.next {
+        right: 5%; // Position relative to book container
+    }
+
+    &:hover {
+        background: #6b6bff;
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #6b6bff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    }
+}

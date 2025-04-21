@@ -23,6 +23,16 @@ defaults:
       layout: "post"
       read_time: 5
 
+# Sass/SCSS
+sass:
+  sass_dir: _sass
+  style: compressed
+  sourcemap: development
+  implementation: sass-embedded
+  load_paths:
+    - _sass
+    - assets/css
+
 # Exclude from processing
 exclude:
   - Gemfile

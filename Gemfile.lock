@@ -70,6 +70,7 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 3.9.2)
   jekyll-feed (~> 0.12)
+  jekyll-sass-converter (~> 1.5.2)
   kramdown-parser-gfm (~> 1.1.0)
   minima (~> 2.5)
   webrick (~> 1.7)
