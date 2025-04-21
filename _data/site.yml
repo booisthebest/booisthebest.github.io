@@ -1,0 +1,22 @@
+# Author Information
+author: Hester Li
+social_links:
+  facebook: # your twitter username
+  instagram: # your instagram username
+
+# Site Content
+title: Purrfect Blog
+subtitle: Adventures with Boo and Friends
+description: A delightful blog about cats and their adventures
+
+# Hero Section
+hero_image: /assets/img/hester_boo_1.jpeg
+hero_alt: "Hester and Boo"
+
+# Site Appearance
+primary_color: "#4a4a4a"
+accent_color: "#f08080"
+
+# Post Settings
+default_read_time: 5
+show_emoji_in_posts: true

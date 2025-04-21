@@ -4,14 +4,15 @@ title: Home
 ---
 
 <div class="hero-section">
-    <img src="{{ '/assets/img/hester_boo_1.jpeg' | relative_url }}" alt="Hester and Boo" class="hero-image">
+    <img src="{{ site.data.site.hero_image | relative_url }}" alt="{{ site.data.site.hero_alt }}" class="hero-image">
 </div>
 
 <div class="book-container">
     <button class="book-nav prev" aria-label="Previous page">←</button>
     <div class="book">
         <div class="book-cover">
-            <h2>{{ site.title }}</h2>
+            <h2>{{ site.data.site.title }}</h2>
+            <h3>{{ site.data.site.subtitle }}</h3>
         </div>
         
         {% assign posts = site.posts | reverse %}

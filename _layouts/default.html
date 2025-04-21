@@ -3,27 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.data.site.title }}</title>
+    <meta name="description" content="{{ site.data.site.description }}">
+    <meta name="author" content="{{ site.data.site.author }}">
+    
+    <style>
+        :root {
+            --primary-color: {{ site.data.site.primary_color }};
+            --accent-color: {{ site.data.site.accent_color }};
+        }
+    </style>
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header class="site-header">
+        <nav>
+            <div class="social-links">
+                {% if site.data.site.social_links.instagram %}
+                <a href="https://instagram.com/{{ site.data.site.social_links.instagram }}" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                {% endif %}
+                {% if site.data.site.social_links.facebook %}
+                <a href="https://facebook.com/{{ site.data.site.social_links.facebook }}" target="_blank" title="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                {% endif %}
+            </div>
+        </nav>
         <div class="cat-container">
             {% include cat-svg.html %}
         </div>
-        <h1 class="site-title">{{ site.title }}</h1>
+            <a href="{{ '/' | relative_url }}" class="site-title">
+                {{ site.title }}
+            </a>
     </header>
 
-    <main class="main-content">
+    <main>
         {{ content }}
     </main>
 
     <footer class="site-footer">
-        <p>© {% assign current_year = 'now' | date: "%Y" %}{{ current_year }} {{ site.title }} • Made with 💖 and 🐱</p>
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.data.site.author }} • Made with 💖 and 🐱</p>
     </footer>
+
     <script src="{{ '/js/script.js' | relative_url }}"></script>
 </body>
 </html>

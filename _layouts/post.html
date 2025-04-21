@@ -2,10 +2,20 @@
 layout: default
 ---
 <article class="post">
-    <div class="post-image placeholder"></div>
-    <div class="post-content">
+    <header class="post-header">
         <h1>{{ page.title }}</h1>
-        <p class="post-meta">{{ page.date | date: "%B %d, %Y" }} • {{ page.read_time }} min read {% if page.emoji %}{{ page.emoji }}{% endif %}</p>
+        <p class="post-meta">
+            {{ page.date | date: "%B %d, %Y" }} • 
+            {% if page.read_time %}{{ page.read_time }}{% else %}{{ site.data.site.default_read_time }}{% endif %} min read
+            {% if site.data.site.show_emoji_in_posts and page.emoji %}{{ page.emoji }}{% endif %}
+        </p>
+    </header>
+
+    <div class="post-content">
         {{ content }}
     </div>
+
+    <footer class="post-footer">
+        <p>Written by {{ site.data.site.author }}</p>
+    </footer>
 </article>

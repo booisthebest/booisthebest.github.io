@@ -21,7 +21,6 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      read_time: 5
 
 # Sass/SCSS
 sass:
