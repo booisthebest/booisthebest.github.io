@@ -1,0 +1,40 @@
+title: Purrfect Blog
+description: A delightful blog about cats and their adventures
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /posts/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      read_time: 5
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - .sass-cache
+  - .jekyll-cache
+  - .jekyll-metadata
+  - .git
+  - .gitignore
+  - .bundle
+  - docker-compose.yml
+  - LICENSE

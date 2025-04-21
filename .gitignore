@@ -1,0 +1,18 @@
+# Jekyll site output
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler related
+.bundle/
+vendor/
+.vendor/
+vendor/bundle/
+
+# Dependency directories
+node_modules/
+
+# System Files
+.DS_Store
+Thumbs.db

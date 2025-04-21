@@ -1,0 +1,81 @@
+<svg class="cat" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clipPath id="body-clip">
+            <path d="
+                M130,140 
+                C120,140 110,130 110,120
+                C110,100 120,90 130,85
+                L130,80
+                C130,65 170,65 170,80
+                L170,85
+                C180,90 190,100 190,120
+                C190,130 180,140 170,140
+                C170,150 130,150 130,140
+                Z"/>
+        </clipPath>
+    </defs>
+    
+    <g class="cat-body">
+        <path class="body-base" d="
+            M130,140 
+            C120,140 110,130 110,120
+            C110,100 120,90 130,85
+            L130,80
+            C130,65 170,65 170,80
+            L170,85
+            C180,90 190,100 190,120
+            C190,130 180,140 170,140
+            C170,150 130,150 130,140
+            Z" fill="black"/>
+
+        <path class="chest-patch" d="
+            M135,85
+            C142,75 158,75 165,85
+            L160,100
+            C158,110 142,110 140,100
+            Z" fill="white" style="stroke: none;"/>
+
+        <g class="tail">
+            <path d="
+                M180,120
+                C200,120 220,100 225,80
+                C228,70 220,65 215,70
+                C210,75 205,85 200,95
+                Z" fill="black"/>
+        </g>
+
+        <g class="upper-body">
+            <circle class="face" cx="150" cy="60" r="35" fill="black"/>
+            <path class="ear left-ear" d="M125,35 C125,25 120,15 130,20 C140,25 140,25 140,35 Z" fill="black"/>
+            <path class="ear right-ear" d="M175,35 C175,25 180,15 170,20 C160,25 160,25 160,35 Z" fill="black"/>
+            
+            <g class="eyes">
+                <g class="eye-container" transform="translate(140,55)">
+                    <ellipse class="eye-outline" cx="0" cy="0" rx="8" ry="11.5" fill="white"/>
+                    <g class="eye-movement">
+                        <ellipse class="pupil" cx="0" cy="0" rx="3.5" ry="4" fill="black"/>
+                        <circle class="eye-highlight" cx="1.5" cy="-2" r="1.5" fill="white"/>
+                    </g>
+                </g>
+                <g class="eye-container" transform="translate(160,55)">
+                    <ellipse class="eye-outline" cx="0" cy="0" rx="8" ry="11.5" fill="white"/>
+                    <g class="eye-movement">
+                        <ellipse class="pupil" cx="0" cy="0" rx="3.5" ry="4" fill="black"/>
+                        <circle class="eye-highlight" cx="1.5" cy="-2" r="1.5" fill="white"/>
+                    </g>
+                </g>
+            </g>
+            
+            <circle class="nose" cx="150" cy="70" r="3" fill="pink"/>
+            
+            <g class="whiskers" stroke="black" stroke-width="3">
+                <line x1="109" y1="60" x2="130" y2="65"/>
+                <line x1="108" y1="70" x2="130" y2="70"/>
+                <line x1="110" y1="80" x2="130" y2="75"/>
+                <line x1="191" y1="60" x2="170" y2="65"/>
+                <line x1="192" y1="70" x2="170" y2="70"/>
+                <line x1="190" y1="80" x2="170" y2="75"/>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="cat-container">
+            {% include cat-svg.html %}
+        </div>
+        <h1 class="site-title">{{ site.title }}</h1>
+    </header>
+
+    <main class="main-content">
+        {{ content }}
+    </main>
+
+    <footer class="site-footer">
+        <p>© {% assign current_year = 'now' | date: "%Y" %}{{ current_year }} {{ site.title }} • Made with 💖 and 🐱</p>
+    </footer>
+    <script src="{{ '/js/script.js' | relative_url }}"></script>
+</body>
+</html>
