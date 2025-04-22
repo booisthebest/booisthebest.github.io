@@ -1,0 +1,92 @@
+<!-- Fern Tree SVG -->
+<div class="fern-container">
+  <svg class="fern" viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+    <path class="fern-stem" d="M50,10 Q50,190 50,190" fill="none" stroke="#2d5a27" stroke-width="2"/>
+    <g class="fern-leaves">
+      <path d="M50,20 Q70,25 80,20 Q70,35 50,25" fill="none" stroke="#3a7a34" stroke-width="1.5"/>
+      <path d="M50,40 Q70,45 80,40 Q70,55 50,45" fill="none" stroke="#3a7a34" stroke-width="1.5"/>
+      <path d="M50,60 Q30,65 20,60 Q30,75 50,65" fill="none" stroke="#3a7a34" stroke-width="1.5"/>
+      <path d="M50,80 Q70,85 80,80 Q70,95 50,85" fill="none" stroke="#3a7a34" stroke-width="1.5"/>
+      <path d="M50,100 Q30,105 20,100 Q30,115 50,105" fill="none" stroke="#3a7a34" stroke-width="1.5"/>
+      <path d="M50,120 Q70,125 80,120 Q70,135 50,125" fill="none" stroke="#3a7a34" stroke-width="1.5"/>
+      <path d="M50,140 Q30,145 20,140 Q30,155 50,145" fill="none" stroke="#3a7a34" stroke-width="1.5"/>
+    </g>
+  </svg>
+</div>
+
+<!-- Cherry Blossom SVG -->
+<div class="blossom-container">
+  <svg class="cherry-blossom" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+    <g class="blossom-petals">
+      <path d="M25,10 Q30,15 25,20 Q20,15 25,10" fill="none" stroke="#ffb7c5" stroke-width="1"/>
+      <path d="M15,20 Q20,25 15,30 Q10,25 15,20" fill="none" stroke="#ffb7c5" stroke-width="1"/>
+      <path d="M35,20 Q40,25 35,30 Q30,25 35,20" fill="none" stroke="#ffb7c5" stroke-width="1"/>
+      <path d="M25,30 Q30,35 25,40 Q20,35 25,30" fill="none" stroke="#ffb7c5" stroke-width="1"/>
+    </g>
+    <circle cx="25" cy="25" r="2" fill="none" stroke="#fff000" stroke-width="0.5"/>
+  </svg>
+</div>
+
+<div class="nature-elements">
+  <!-- Templates for different flower types -->
+  <template id="flower-templates">
+    <!-- Cherry Blossom -->
+    <svg class="flower cherry-blossom" viewBox="0 0 20 20">
+      <g class="petals">
+        <path d="M10,2 Q13,5 10,8 Q7,5 10,2" />
+        <path d="M4,6 Q7,9 4,12 Q1,9 4,6" />
+        <path d="M16,6 Q19,9 16,12 Q13,9 16,6" />
+        <path d="M10,10 Q13,13 10,16 Q7,13 10,10" />
+      </g>
+      <circle cx="10" cy="10" r="1" class="center"/>
+    </svg>
+
+    <!-- Daisy -->
+    <svg class="flower daisy" viewBox="0 0 20 20">
+      <g class="petals">
+        <path d="M10,2 L12,8 L10,10 L8,8 Z" />
+        <path d="M2,10 L8,12 L10,10 L8,8 Z" />
+        <path d="M10,18 L12,12 L10,10 L8,12 Z" />
+        <path d="M18,10 L12,12 L10,10 L12,8 Z" />
+        <path d="M4,4 L9,9 L10,10 L8,8 Z" />
+        <path d="M16,4 L11,9 L10,10 L12,8 Z" />
+        <path d="M4,16 L9,11 L10,10 L8,12 Z" />
+        <path d="M16,16 L11,11 L10,10 L12,12 Z" />
+      </g>
+      <circle cx="10" cy="10" r="2" class="center"/>
+    </svg>
+
+    <!-- Wildflower - improved design -->
+    <svg class="flower wildflower" viewBox="0 0 20 20">
+      <g class="petals">
+        <!-- Center petal group -->
+        <path d="M10,2 C12,4 12,8 10,10 C8,8 8,4 10,2" />
+        <path d="M2,10 C4,12 8,12 10,10 C8,8 4,8 2,10" />
+        <path d="M18,10 C16,12 12,12 10,10 C12,8 16,8 18,10" />
+        <path d="M10,18 C8,16 8,12 10,10 C12,12 12,16 10,18" />
+        <!-- Diagonal petals -->
+        <path d="M5,5 C7,7 7,9 10,10 C9,7 7,7 5,5" />
+        <path d="M15,5 C13,7 13,9 10,10 C11,7 13,7 15,5" />
+        <path d="M5,15 C7,13 9,13 10,10 C7,11 7,13 5,15" />
+        <path d="M15,15 C13,13 11,13 10,10 C13,11 13,13 15,15" />
+      </g>
+      <circle cx="10" cy="10" r="1.5" class="center"/>
+    </svg>
+
+    <!-- Poppy -->
+    <svg class="flower poppy" viewBox="0 0 20 20">
+      <g class="petals">
+        <path d="M10,2 C15,5 15,15 10,18 C5,15 5,5 10,2" />
+        <path d="M2,10 C5,15 15,15 18,10 C15,5 5,5 2,10" />
+      </g>
+      <circle cx="10" cy="10" r="2" class="center"/>
+    </svg>
+  </template>
+
+  <!-- Falling Petal Template -->
+  <template id="petal-template">
+    <svg class="falling-petal" viewBox="0 0 10 10">
+      <path d="M5,1 Q7,3 5,5 Q3,3 5,1" />
+    </svg>
+  </template>
+</div>

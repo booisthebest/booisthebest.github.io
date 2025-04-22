@@ -1,0 +1,319 @@
+// Nature elements styling
+.nature-elements {
+  position: fixed;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+
+  // Create side columns for nature elements
+  &::before,
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    width: 20vw; // Side column width
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+}
+
+.tree-container {
+  position: fixed;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease-out, transform 1.5s ease-out;
+  filter: opacity(0.5);
+
+  &.visible {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+
+  svg {
+    width: 200px;
+    height: 300px;
+  }
+}
+
+.tree-trunk, .tree-branches path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 2s ease-out;
+}
+
+.visible .tree-trunk,
+.visible .tree-branches path {
+  stroke-dashoffset: 0;
+}
+
+.fern-container, .blossom-container {
+  position: fixed; // Changed from absolute to fixed
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.2s ease-out, transform 1.5s ease-out;
+  filter: opacity(0.5); // Added alpha transparency
+
+  &.visible {
+    opacity: 0.5; // Match the filter opacity
+    transform: translateY(0);
+  }
+
+  // Add drawing animation for elements
+  &.visible svg path {
+    stroke-dashoffset: 0;
+  }
+}
+
+.fern {
+  width: 60px;
+  height: 120px;
+
+  .fern-stem,
+  .fern-leaves path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 2s ease-out;
+  }
+
+  .fern-leaves {
+    transform-origin: center;
+    animation: sway 8s ease-in-out infinite;
+  }
+}
+
+.cherry-blossom {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+
+  &.active {
+    opacity: 1;
+  }
+
+  path {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 1.5s ease-out;
+    stroke: #ffb7c5;
+    stroke-width: 1;
+  }
+
+  .blossom-petals {
+    transform-origin: center;
+    animation: rotate 10s linear infinite;
+  }
+}
+
+// Position elements on sides only
+@for $i from 1 through 10 {
+  .fern-#{$i} {
+    @if $i % 2 == 0 {
+      left: 5vw;
+    } @else {
+      right: 5vw;
+    }
+    bottom: #{10 + random(70)}vh;
+    transform: scale(#{0.6 + random(5) * 0.1}) rotate(#{random(20) - 10}deg);
+  }
+
+  .blossom-#{$i} {
+    @if $i % 2 == 0 {
+      right: #{5 + random(15)}vw;
+    } @else {
+      left: #{5 + random(15)}vw;
+    }
+    top: #{random(80)}vh;
+    transform: scale(#{0.6 + random(5) * 0.1});
+  }
+}
+
+// Position trees on sides
+@for $i from 1 through 4 {
+  .tree-#{$i} {
+    @if $i % 2 == 0 {
+      right: #{5 + random(10)}vw;
+    } @else {
+      left: #{5 + random(10)}vw;
+    }
+    bottom: #{random(30)}vh;
+    transform: scale(#{0.6 + random(4) * 0.1});
+  }
+}
+
+.falling-petal {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+// Animations
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// Drawing animation for cherry blossoms
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+// Falling animation for blossoms
+@keyframes fall {
+  0% {
+    transform: translate(0, -10px) rotate(0deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(#{random(100)}px, #{100 + random(50)}px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+// Apply sway animation to blossoms
+.cherry-blossom {
+  animation: sway 4s ease-in-out infinite;
+}
+
+// Falling petal variations
+@for $i from 1 through 5 {
+  .falling-petal-#{$i} {
+    animation: fall #{3 + random(4)}s linear infinite;
+    animation-delay: #{random(5)}s;
+  }
+}
+
+.flower {
+  position: fixed;
+  opacity: 0;
+  transform: translateY(20px) scale(0);
+  transition: opacity 1s ease-out, transform 1.2s ease-out;
+  width: 30px;
+  height: 30px;
+
+  &.visible {
+    opacity: 0.7;
+    transform: translateY(0) scale(1);
+  }
+
+  &.cherry-blossom {
+    .petals path { fill: #ffb7c5; }
+    .center { fill: #fff000; }
+  }
+
+  &.daisy {
+    .petals path { fill: #ffffff; }
+    .center { fill: #fff000; }
+  }
+
+  &.wildflower {
+    .petals path { 
+      fill: #9370DB;
+      stroke: #8A2BE2;
+      stroke-width: 0.3;
+    }
+    .center { 
+      fill: #4B0082;
+      stroke: #9370DB;
+      stroke-width: 0.2;
+    }
+  }
+
+  &.poppy {
+    .petals path { fill: #ff4d4d; }
+    .center { fill: #4a1414; }
+  }
+}
+
+.falling-petal {
+  position: fixed;
+  width: 15px;
+  height: 15px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+
+  path {
+    fill: var(--petal-color, #ffb7c5);
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 0.2;
+  }
+}
+
+// Flower position variations - increased range for more flowers
+@for $i from 1 through 60 {
+  .flower-#{$i} {
+    left: #{random(90)}vw;
+    top: #{random(90)}vh;
+    z-index: -1;
+    transform-origin: center;
+    animation: sway #{4 + random(4)}s ease-in-out infinite;
+    animation-delay: #{random(3)}s;
+    
+    @if $i % 4 == 0 {
+      --petal-color: #ffb7c5; // Cherry blossom
+      filter: drop-shadow(0 0 2px rgba(255, 183, 197, 0.3));
+    } @else if $i % 4 == 1 {
+      --petal-color: #ffffff; // Daisy
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+    } @else if $i % 4 == 2 {
+      --petal-color: #9370DB; // Wildflower
+      filter: drop-shadow(0 0 2px rgba(147, 112, 219, 0.3));
+    } @else {
+      --petal-color: #ff4d4d; // Poppy
+      filter: drop-shadow(0 0 2px rgba(255, 77, 77, 0.3));
+    }
+  }
+}
+
+// Animations
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg) scale(1.05); }
+  75% { transform: rotate(-5deg) scale(0.95); }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+// Falling petal variations
+@for $i from 1 through 5 {
+  .falling-petal-#{$i} {
+    animation: float #{5 + random(5)}s linear infinite;
+    animation-delay: #{random(5)}s;
+  }
+}
