@@ -16,4 +16,4 @@ emoji: 😄
 - 抬头看一下有没有银河
 
 散完步回家睡个好觉吧
-![moony](../assets/img/boo_moony_3.jpeg)
+![moony](/assets/img/moony_3.jpeg)
