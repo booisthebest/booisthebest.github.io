@@ -12,7 +12,12 @@ layout: default
     </header>
 
     <div class="post-content">
-        {{ content }}
+        {% assign content_with_figures = content | replace: '<p><img src="', '<figure><img src="' | 
+            replace: '" alt="', '" loading="lazy" alt="' |
+            replace: '"/></p>', '"/></figure>' |
+            replace: '"> _', '"><figcaption>' |
+            replace: '_</p>', '</figcaption></figure>' %}
+        {{ content_with_figures }}
     </div>
 
     <footer class="post-footer">
