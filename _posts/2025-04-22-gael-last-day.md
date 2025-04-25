@@ -1,19 +1,21 @@
 ---
 layout: post
-title: "gael's last day"
+title: "Gael's Last Day"
 date: 2025-04-22
 read_time: 1
 emoji: 😄
 ---
-我们吃了饺子然后他教我如何在网站上发送帖子
-我们打算出去散个步
-## 在夜晚散步的时候要注意些什么呢
 
-- 不要东张西望
-- 随时检查有没有猫跟在你后面
-- 如果有猫的话看一下是不是moony
-- 如果是moony的话把它哄回家
-- 抬头看一下有没有银河
+We had dumplings for dinner, and then he taught me how to post on the website.
+We're planning to go for a walk afterwards.
+
+## What Should We Be Mindful of When Walking at Night?
+
+1. Always carry a phone with sufficient battery
+2. Stay in well-lit areas
+3. Be aware of your surroundings
+4. Let someone know where you're going
+5. Wear comfortable shoes and bring a light jacket
 
 散完步回家睡个好觉吧
 ![moony](/assets/img/moony_3.jpeg)

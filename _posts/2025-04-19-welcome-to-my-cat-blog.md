@@ -6,7 +6,7 @@ read_time: 5
 emoji: 🐱
 ---
 
-Welcome to my cat blog! Join me on this wonderful journey through the world of cats. Here we'll explore everything from cat care tips to funny cat stories and much more.
+Welcome to my cat blog! Join me on this wonderful journey through the world of cats. Here, we'll explore everything from cat care tips to funny cat stories and much more.
 
 I've always been fascinated by our feline friends, and I created this blog to share my experiences, knowledge, and love for cats with fellow cat enthusiasts.
 

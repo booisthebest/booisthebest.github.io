@@ -116,3 +116,32 @@ body {
         border-radius: 15px;
     }
 }
+
+@media (max-width: 375px) {
+    .site-title {
+        font-size: 1.5rem;
+    }
+
+    .main-content {
+        padding: 0.5rem;
+    }
+
+    .hero-section {
+        padding: 0 0.5rem;
+        margin: 0.5rem auto;
+    }
+
+    .hero-image {
+        height: 200px;
+        border-radius: 10px;
+    }
+
+    .site-header nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .social-links {
+        gap: 0.5rem;
+    }
+}

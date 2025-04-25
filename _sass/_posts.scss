@@ -359,3 +359,37 @@
         }
     }
 }
+
+@media (max-width: 375px) {
+    .post-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .post {
+        padding: 1rem;
+        margin: 0.5rem;
+        border-radius: 10px;
+    }
+
+    .post-content {
+        font-size: 1rem;
+
+        h2 {
+            font-size: 1.4rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        img {
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+    }
+
+    .featured-post .post-card {
+        margin: 0.5rem;
+    }
+}

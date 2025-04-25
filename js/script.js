@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Close the book
                 bookCover.style.transform = 'rotateY(0)';
                 bookSpreads.forEach((spread, i) => {
-                    spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1) ${i * 100}ms`;
+                    spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1)`;
                     spread.classList.remove('active', 'prev', 'next');
                     spread.style.opacity = '0';
                     spread.style.transform = 'rotateY(90deg)';
@@ -43,8 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 bookSpreads.forEach((spread) => {
                     const spreadIndex = parseInt(spread.dataset.page);
-                    const delay = Math.abs(spreadIndex - index) * 100;
-                    spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1) ${delay}ms`;
+                    spread.style.transition = `all ${duration}ms cubic-bezier(0.645, 0.045, 0.355, 1)`;
                     
                     const leftPage = spread.querySelector('.left-page');
                     const rightPage = spread.querySelector('.right-page');
@@ -82,9 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             updateNavigationButtons();
 
+            // Adjust the animation completion timing
             setTimeout(() => {
                 isAnimating = false;
-            }, duration + (bookSpreads.length * 100));
+            }, duration + 50);
         }
 
         prevButton.addEventListener('click', () => {
@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update next button handler for smoother animation
         nextButton.addEventListener('click', () => {
             if (!isAnimating) {
                 if (currentSpreadIndex === 0) {
@@ -144,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     turnToPage(currentSpreadIndex - 1);
                 } else if (e.key === 'ArrowRight' || e.key === 'PageDown') {
                     if (currentSpreadIndex === 0) {
-                        bookCover.style.transform = 'rotateY(180deg)';
+                        bookCover.style.transform = 'rotateY(-180deg)';
                         setTimeout(() => {
                             turnToPage(1);
                         }, 600);
